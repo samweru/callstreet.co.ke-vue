@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
 	const blogs = [
 
 		{
@@ -27,8 +27,18 @@
 		<div class="row">
 			<div v-for="blog in blogs" class="col-md-4">
 				<div class="fh5co-blog animate-box">
-					<a href="/blog/bid/{{ blog.id }}" class="blog-bg" target="_blank" 
-						style="background-image: url('{{blog.img}}');"></a>
+					<RouterLink :to="{
+					        name: 'Blog',
+					    	params: { id: blog.id }
+						}">
+						<a class="blog-bg" 
+							target="_blank" 
+							style="background-image: url('{{blog.img}}');">Test {{blog.id}}</a>
+					</RouterLink>
+					<!-- <a href="/blog/bid/{{ blog.id }}" 
+						class="blog-bg" 
+						target="_blank" 
+						style="background-image: url('{{blog.img}}');">A</a> -->
 					<div class="blog-text">
 						<span class="posted_on">{{ blog.date }}</span>
 						<h3><a href="/blog/bid/{{ blog.id }}" target="_blank">{{ blog.title }}</a></h3>

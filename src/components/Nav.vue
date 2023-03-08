@@ -29,13 +29,14 @@
 					<div class="col-xs-10 menu-1">
 						<ul>
 							<li>
-								<a ng-click="setActive($event)" href="#!/home">Home</a>
+								<!-- <a ng-click="setActive($event)" href="/home">Home</a> -->
+								<RouterLink to="/">Home</RouterLink>
 							</li>
 							<li class="has-dropdown">
 								<a ng-click="setActive($event)">About Us</a>
 								<ul class="dropdown">
 									<!-- <li><a href="#!/about">Who are we</a></li> -->
-									<li><RouterLink to="/home">Home</RouterLink></li>
+									<li><RouterLink to="/">Home</RouterLink></li>
 									<li><RouterLink to="/contacts">Contacts</RouterLink></li>
 									<!-- <li><a href="#!/contacts">Contacts</a></li> -->
 									<!-- <li><a href="#">Our Team</a></li> -->
@@ -45,26 +46,41 @@
 								<a ng-click="setActive($event)">Services</a>
 								<ul class="dropdown">
 									<!-- {{begin:services}} -->
-									<li><a href="#!service/{{id}}">{{title}}</a></li>
+									<!--<li><a href="/service/{{id}}">{{title}}</a></li>-->
+									<li><RouterLink to="/service/{{id}}">{{title}}</RouterLink></li>
 									<!-- {{end:services}} -->
 								</ul>
 							</li>
 							<li class="has-dropdown">
 								<a ng-click="setActive($event)">Research Center</a>
 								<ul class="dropdown">
-									<li><a href="#!/research/insight">Insights</a></li>
-									<li><a href="#!/research/studies">Studies</a></li>
+									<li><RouterLink to="/research/insight">Insight</RouterLink></li>
+									<li><RouterLink to="/research/studies">Studies</RouterLink></li>
+									<!-- <li><a href="/research/insight">Insights</a></li> -->
+									<!-- <li><a href="/research/studies">Studies</a></li> -->
 								</ul>
 							</li>
-							<li><a ng-click="setActive($event)" 
-								href="#!/contacts">Contact Us
-							</a>
+							<li>
+								<!-- <a ng-click="setActive($event)" 
+								href="/contacts">Contact Us
+							</a> -->
+							<RouterLink to="/contacts">Contacts</RouterLink>
 						</li>
 						<li class="has-dropdown">
 							<a ng-click="setActive($event)">Blog</a>
 							<ul class="dropdown">
 								<!-- {{begin:tags}} -->
-								<li><a href="#!/blogs/{{token}}">{{name}}</a></li>
+								<!-- <li><a href="/blogs/{{token}}">{{name}}</a></li> -->
+								<!--<li><RouterLink to="/blogs/{{token}}">Contacts</RouterLink></li>-->
+								<li>
+									<RouterLink
+								      :to="{
+								        name: 'BlogTag',
+								        params: { token: token }
+								      }">
+								    	Blog1
+								    </RouterLink>
+								</li>
 								<!-- {{end:tags}} -->
 							</ul>
 						</li>
@@ -78,8 +94,10 @@
 	</div>
 
 	<div ng-if="user.authd" class="container-wrap login-strip" ng-cloak>
-		<a href="#!/home">{{user.name}}</a>&nbsp;|&nbsp;
-		<a href="#!/logout">Logout</a>
+		<!--<a href="/home">{{user.name}}</a>&nbsp;|&nbsp;-->
+		<!-- <a href="/logout">Logout</a> -->
+		<RouterLink to="/home">{{user.name}}</RouterLink>&nbsp;|&nbsp;
+		<RouterLink to="/logout">Logout</RouterLink>
 	</div>
 </nav>
 </template>

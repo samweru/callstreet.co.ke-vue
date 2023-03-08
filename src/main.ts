@@ -5,6 +5,16 @@ import App from './App.vue'
 import router from './router'
 
 import './assets/main.css'
+// import './assets/main.css'
+import './assets/js/jquery.min.js'
+import './assets/js/jquery.easing.1.3.js'
+import './assets/js/bootstrap.min.js'
+import './assets/js/jquery.waypoints.min.js'
+import './assets/js/jquery.flexslider-min.js'
+import './assets/js/jquery.magnific-popup.min.js'
+import './assets/js/magnific-popup-options.js'
+import './assets/js/jquery.countTo.js'
+import './assets/js/main.js'
 
 const app = createApp(App)
 

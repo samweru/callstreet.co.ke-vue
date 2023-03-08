@@ -1,39 +1,50 @@
-<script setup lang="ts">
-	const blog = {
+<script lang="ts">
 
-		comments:{
+export default {
 
-			how_many:2,
-			list:[
+	data(){
 
-				{
+		return {
 
-					comment_id:1,
-					author:{
+			blog:{
 
-						name:"pitsolu"
-					},
-					has_replies:false,
-					date:"date-cap1",
-					descr:"descr-cap1"
-				},
-				{
+				comments:{
 
-					comment_id:2,
-					author:{
+					how_many:2,
+					list:[
 
-						name:"peterpaker"
-					},
-					has_replies:false,
-					date:"date-cap2",
-					descr:"descr-cap2"
+						{
+
+							comment_id:1,
+							author:{
+
+								name:"pitsolu"
+							},
+							has_replies:false,
+							date:"date-cap1",
+							descr:"descr-cap1"
+						},
+						{
+
+							comment_id:2,
+							author:{
+
+								name:"peterpaker"
+							},
+							has_replies:false,
+							date:"date-cap2",
+							descr:"descr-cap2"
+						}
+					]
 				}
-			]
-		}
+			}
+		};
 	}
+}
 </script>
 <template>
-	<div v-if="blog.comments.how_many > 0" class="comments-list-wrap">
+	<!-- <div v-if="blog.comments.how_many > 0" class="comments-list-wrap"> -->
+	<div class="comments-list-wrap">
 		<h3 class="comment-count-title">
 			Comments {{ blog.comments.how_many }}
 		</h3>
@@ -43,7 +54,8 @@
 					<!-- <img src="{{ comment.author.avater }}" alt=""> -->
 				</div>
 				<!--comment-->
-				<div v-if="comment.author" class="comment-text-body" data-id="{{comment.comment_id}}">
+				<!-- <div v-if="comment.author" class="comment-text-body" data-id="{{comment.comment_id}}"> -->
+				<div class="comment-text-body" data-id="{{comment.comment_id}}">
 					<h4>{{ comment.author.name }}
 						<span class="comment-date">{{ comment.date }}</span> 
 						<a ng-click="replyTo(comment.author.name, comment.comment_id)" 
@@ -54,6 +66,7 @@
 					<a class="show-reply" 
 						ng-hide="!comment.has_replies"
 						ng-click='showReplies($event, comment.comment_id)'>Show Replies</a>
+					<!--<BlogCommentReply/>-->
 					<!--replies-->
 				</div>
 			</div>

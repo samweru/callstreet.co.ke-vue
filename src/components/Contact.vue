@@ -1,9 +1,25 @@
-<script setup lang="ts">
+<!--<script setup lang="js">-->
+<script setup>
+// export default {
 	const address = "address-cap"
 	const info = {
 
 		message:"info-message"
 	}
+
+	// let n: ReturnType<typeof setTimeout>;
+	// n = setTimeout(function(){
+
+	// 	$.contentWayPoint();
+
+	// }, 1000);
+
+	setTimeout(function(){
+
+		console.log("abc")
+		$.contentWayPoint();
+
+	}, 1000);
 </script>
 <template>
 	<div id="fh5co-contact">
