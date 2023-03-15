@@ -47,7 +47,11 @@
 								<ul class="dropdown">
 									<!-- {{begin:services}} -->
 									<!--<li><a href="/service/{{id}}">{{title}}</a></li>-->
-									<li><RouterLink to="/service/{{id}}">{{title}}</RouterLink></li>
+									<!-- <li><RouterLink to="/service/{{id}}">{{title}}</RouterLink></li> -->
+									<li><RouterLink v-bind:to = "{path:'/service/'.concat(id)}">
+											{{title}}
+										</RouterLink>
+									</li>
 									<!-- {{end:services}} -->
 								</ul>
 							</li>

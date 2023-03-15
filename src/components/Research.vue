@@ -1,14 +1,34 @@
-<script setup lang="ts">
-	const papers = [
+<script lang="ts">
+export default{
 
-		{
+	data(){
 
-			id:"id-cap1",
-			name:"name-cap1"
+		return {
+
+			papers:[
+
+				{
+
+					id:"id-cap1",
+					name:"name-cap1"
+				}
+			],
+			research_type:"Insights",
+			is_authd:false
+		};
+	},
+	methods:{
+
+		downloadInsight(insight:any){
+
+			console.log(insight)
+		},
+		downloadStudy(study:any){
+
+			console.log(study)
 		}
-	]
-
-	const research_type = "research-type-cap"
+	}
+}
 </script>
 <template>
 	<div class="col-md-4 please-wait" text-center>Please wait..</div>
@@ -26,16 +46,16 @@
 						<tr v-for="paper in papers">
 							<td align="left">{{ paper.name }}</td>
 							<!-- <td class="actions"><a href="#">Details</a></td> -->
-							<td ng-if="!is_authd" class="actions">
-								<a ng-if="research_type == 'Insights'" 
-									ng-click='downloadInsight(paper.id)'>Download</a>
-								<a ng-if="research_type == 'Studies'" 
-									ng-click='downloadStudy(paper.id)'>Download</a>
+							<td v-if="!is_authd" class="actions">
+								<a v-if="research_type == 'Insights'" 
+									@click='downloadInsight(paper.id)'>Download</a>
+								<a v-if="research_type == 'Studies'" 
+									@click='downloadStudy(paper.id)'>Download</a>
 							</td>
-							<td ng-if="is_authd" class="actions">
-								<a ng-if="research_type == 'Insights'" 
+							<td v-if="is_authd" class="actions">
+								<a v-if="research_type == 'Insights'" 
 									href="/research/insights/{{paper.id}}/download" download>Download</a>
-								<a ng-if="research_type == 'Studies'" 
+								<a v-if="research_type == 'Studies'" 
 									href="/research/studies/{{paper.id}}/download" download>Download</a>
 							</td>
 						</tr>

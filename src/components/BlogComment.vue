@@ -1,4 +1,4 @@
-<script lang="ts">
+<script>
 
 export default {
 
@@ -64,7 +64,7 @@ export default {
 					<p>{{ comment.descr }}</p>
 					<!--replies-->
 					<a class="show-reply" 
-						ng-hide="!comment.has_replies"
+						v-show="!comment.has_replies"
 						ng-click='showReplies($event, comment.comment_id)'>Show Replies</a>
 					<!--<BlogCommentReply/>-->
 					<!--replies-->

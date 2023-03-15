@@ -22,23 +22,40 @@ const blog_descr = "N/A"
 									<p>
 										<ul class="fh5co-social-icons">
 											<li>
-												<a href="{{blog.share.twitter}}" 
+												<!-- <a href="/${blog.share.twitter}" 
 													target="_blank"
 													class="btn btn-share">Share&nbsp;
 														<i class="icon-twitter"></i>
-												</a>
+												</a> -->
+												<RouterLink v-bind:to = "{path:blog.share.twitter}"
+													target="_blank"
+													class="btn btn-share">Share&nbsp;
+														<i class="icon-twitter"></i>
+												</RouterLink>
 											</li>
-											<li><a href="{{blog.share.facebook}}" 
+											<li>
+												<!-- <a href="{{blog.share.facebook}}" 
 													target="_blank"
 													class="btn btn-share">Share&nbsp;
 													<i class="icon-facebook"></i>
-												</a>
+												</a> -->
+												<RouterLink v-bind:to = "{path:blog.share.facebook}"
+													target="_blank"
+													class="btn btn-share">Share&nbsp;
+														<i class="icon-facebook"></i>
+												</RouterLink>
 											</li>
-											<li><a href="{{blog.share.linkedin}}" 
+											<li>
+												<!-- <a href="{{blog.share.linkedin}}" 
 													target="_blank"
 													class="btn btn-share">Share&nbsp;
 													<i class="icon-linkedin"></i>
-												</a>
+												</a> -->
+												<RouterLink v-bind:to = "{path:blog.share.linkedin}"
+													target="_blank"
+													class="btn btn-share">Share&nbsp;
+														<i class="icon-linkedin"></i>
+												</RouterLink>
 											</li>
 										</ul>
 									</p>

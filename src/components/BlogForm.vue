@@ -1,5 +1,6 @@
 <script lang="ts">
 import BlogComment from './BlogComment.vue'	
+// import { useRoute } from 'vue-router'
 
 export default {
 
@@ -24,6 +25,10 @@ export default {
 			}
 		};
 	},
+	components:{
+
+		BlogComment
+	},
 	methods:{
 
 		commentSubmit(event:any){
@@ -36,7 +41,7 @@ export default {
 		},
 		redirectToLogin(){
 
-			console.log("redirect-to-login")
+			this.$router.push("/login")
 		},
 		clearForm(){
 

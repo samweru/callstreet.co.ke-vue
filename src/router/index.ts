@@ -10,6 +10,8 @@ import Login from '../components/Login.vue'
 import PasswordForgotten from '../components/PasswordForgotten.vue'
 // import PasswordReset from '../components/PasswordReset.vue'
 import Register from '../components/Register.vue'
+import Service from '../components/Service.vue'
+import NotFound from '../components/NotFound.vue'
 
 // import * as $ from '@js/bootstrap.min.js'
 
@@ -70,6 +72,12 @@ const router = createRouter({
       // component: HomeView
     },
     {
+      path: '/service/:id',
+      name: 'Service',
+      component: Service
+      // component: HomeView
+    },
+    {
       path: '/login',
       name: 'Login',
       component: Login
@@ -85,6 +93,12 @@ const router = createRouter({
       path: '/register',
       name: 'Register',
       component: Register
+      // component: HomeView
+    },
+    {
+      path: '/404',
+      name: 'NotFound',
+      component: NotFound
       // component: HomeView
     },
   ]

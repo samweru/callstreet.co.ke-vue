@@ -5,10 +5,12 @@ export default {
 
 		return {
 
+			showpass:false,
 			form:{
 
-				fullname:"",
-				email:""
+				email:"",
+				username:"",
+				password:""
 			},
 			info:{
 
@@ -32,11 +34,11 @@ export default {
 	        <div class="col-md-7 col-md-offset-3 text-center">
 	            <div class="row">
 	                <div class="col-md-10 text-left which-login">
-	                    <a ng-click="showpass = true" 
-	                        ng-class="showpass ? 'lg-active':'lg-inactive'">Login</a>
+	                    <a @click="showpass = true" 
+	                        :class="[showpass ? 'lg-active':'lg-inactive']">Login</a>
 	                        &nbsp;&nbsp;|&nbsp;&nbsp;
-	                    <a ng-click="showpass = false"
-	                        ng-class="showpass ? 'lg-inactive':'lg-active'">Auto-Login</a>
+	                    <a @click="showpass = false" 
+	                        :class="[showpass ? 'lg-inactive':'lg-active']">Auto-Login</a>
 	                </div>
 	                <div v-if="info" class="col-md-10">
 	                    <center v-if="info.success" style="color:black;font-weight:bold">
@@ -47,40 +49,32 @@ export default {
 	                    </center>
 	                </div>
 	                <form @submit.prevent="loginSubmit">
-	                    <!-- <div class="col-md-10" ng-hide="showpass"> -->
-	                    <div class="col-md-10">
+	                    <div class="col-md-10" v-show="!showpass">
 	                        <div class="form-group">
 	                            <input type="email" class="form-control"
-	                                    v-model="email" placeholder="email" 
-	                                    required>
-	                                    <!-- ng-disabled="showpass" required> -->
+	                                    v-model="form.email" placeholder="email" 
+	                                    :disabled="showpass" required>
 	                        </div>
 	                    </div>
-	                    <!-- <div class="col-md-10" ng-hide="!showpass"> -->
-	                    <div class="col-md-10">
+	                    <div class="col-md-10" v-show="showpass">
 	                        <div class="form-group">
 	                            <input type="text" class="form-control" 
-	                                    v-model="username" placeholder="Username" 
-	                                    required>
-	                                    <!-- ng-disabled="!showpass" required> -->
+	                                    v-model="form.username" placeholder="Username" 
+	                                    :disabled="!showpass" required>
 	                        </div>
 	                    </div>
-	                    <!-- <div class="col-md-10" ng-hide="!showpass"> -->
-	                    <div class="col-md-10">
+	                    <div class="col-md-10" v-show="showpass">
 	                        <div class="form-group">
 	                            <input type="password" class="form-control"
-	                                    v-model="password" placeholder="Password"
-	                                    required="">
-	                                    <!-- ng-disabled="!showpass" required> -->
+	                                    v-model="form.password" placeholder="Password"
+	                                    :disabled="!showpass" required>
 	                        </div>
 	                    </div>
 	                    <div class="col-md-10 text-right">
 	                        <div class="form-group">
-	                            <!-- <a href="#!/forgot/password" class="color-black">Forgot Password</a>-->
-	                            <RouterLink to="/forgot/password">Forgot Password</RouterLink>
+	                            <RouterLink to="/forgot/password" class="color-black">Forgot Password</RouterLink>
 	                            &nbsp;&nbsp;|&nbsp;&nbsp;
-	                            <!-- <a href="#!/register" class="color-black">Register</a>-->
-	                            <RouterLink to="/register">Register</RouterLink>
+	                            <RouterLink to="/register" class="color-black">Register</RouterLink>
 	                            &nbsp;&nbsp;OR&nbsp;&nbsp;
 	                            <input type="submit" value="Login" class="btn btn-primary btn-modify">
 	                        </div>
