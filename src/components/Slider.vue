@@ -10,8 +10,8 @@ export default {
 		// window.offcanvasMenu();
 		// window.burgerMenu();	
 		// $.loaderPage();
-		// $.sliderMain();
-		// $.contentWayPoint();
+		$.sliderMain();
+		$.contentWayPoint();
 		
 
 	},1000)

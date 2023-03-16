@@ -1,18 +1,18 @@
 <script setup lang="ts">
+	const about = "about-cap"
 	const blogs = [
 
 		{
 
-			id:"id-cap1",
-			title:"title-cap1",
+			title:"blog-title1",
+			id:"id-cap1"
 		},
 		{
 
-			id:"id-cap2",
-			title:"title-cap2",
-		}
+			title:"blog-title2",
+			id:"id-cap2"
+		},
 	]
-
 	const contacts = "contact-cap"
 </script>
 <template>
@@ -20,21 +20,29 @@
 		<div class="row">
 			<div class="col-md-3 fh5co-widget">
 				<h4>About Callstreet</h4>
-				<p btf-markdown="about"></p>
+				<p>{{ about }}</p>
 			</div>
 			<div class="col-md-3 col-md-push-1">
 				<h4>Latest Posts</h4>
 				<ul class="fh5co-footer-links">
 					<li v-for="blog in blogs">
-						<a href="/blog/bid/{{ blog.id }}" target="_blank">{{ blog.title }}</a>
+						<RouterLink target="_blank" :to="{
+					        name: 'Blog',
+					    	params: { id: blog.id }
+						}">
+						<a>{{ blog.title }}</a>
+						</RouterLink>
+						<!-- <a href="/blog/bid/{{ blog.id }}" target="_blank">{{ blog.title }}</a> -->
 					</li>
 				</ul>
 			</div>
 			<div class="col-md-3 col-md-push-1">
 				<h4>Links</h4>
 				<ul class="fh5co-footer-links">
-					<li><a href="#!/home">Home</a></li>
-					<li><a href="#!/about">About us</a></li>
+					<li><RouterLink to="/">Home</RouterLink></li>
+					<li><RouterLink to="/about">Home</RouterLink></li>
+					<!-- <li><a href="/#!/home">Home</a></li>
+					<li><a href="/#!/about">About us</a></li> -->
 				</ul>
 			</div>
 
@@ -51,7 +59,6 @@
 					<small class="block">&copy; 2016 Free HTML5. All Rights Reserved.</small> 
 					<small class="block">Designed by <a href="http://freehtml5.co/" target="_blank">FreeHTML5.co</a> Demo Images: <a href="http://unsplash.co/" target="_blank">Unsplash</a></small>
 					<small class="block">Developer: <a href="http://samweru.github.io" target="_blank">Samuel Weru</a></small>
-					<small class="block">ToC:&nbsp;<a href="/toc/privpol" target="_blank">Privacy Policy</a></small>
 				</p>
 				<p>
 					<ul class="fh5co-social-icons">

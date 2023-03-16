@@ -45,8 +45,8 @@
 
 	function offcanvasMenu() {
 
-		$('#page').prepend('<div id="fh5co-offcanvas" />');
-		$('#page').prepend('<a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle fh5co-nav-white"><i></i></a>');
+		$('#app').prepend('<div id="fh5co-offcanvas" />');
+		$('#app').prepend('<a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle fh5co-nav-white"><i></i></a>');
 		var clone1 = $('.menu-1 > ul').clone();
 		$('#fh5co-offcanvas').append(clone1);
 		var clone2 = $('.menu-2 > ul').clone();
@@ -196,7 +196,7 @@
 		$(".fh5co-loader").fadeOut("slow");
 	};
 
-	// var counter = function() {
+	// function counter() {
 	// 	$('.js-counter').countTo({
 	// 		 formatter: function (value, options) {
 	//       return value.toFixed(options.decimals);
@@ -205,7 +205,7 @@
 	// };
 
 
-	// counterWayPoint = function() {
+	// function counterWayPoint() {
 	// 	if ($('#fh5co-counter').length > 0 ) {
 	// 		$('#fh5co-counter').waypoint( function( direction ) {
 										

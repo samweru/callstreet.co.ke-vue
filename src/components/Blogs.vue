@@ -48,7 +48,7 @@ export default{
 					<RouterLink :to="{
 					        name: 'Blog',
 					    	params: { id: blog.id }
-						}" class="blog-bg"
+						}" class="blog-bg" target="_blank"
 							:style="{ backgroundImage: `url(/images/_blog-2.jpg)` }">
 						Test {{blog.id}}
 					</RouterLink>
@@ -59,7 +59,7 @@ export default{
 					<div class="blog-text">
 						<span class="posted_on">{{ blog.date }}</span>
 						<!-- <h3><a href="/blog/bid/{{ blog.id }}" target="_blank">{{ blog.title }}</a></h3> -->
-						<h3><RouterLink :to="{
+						<h3><RouterLink target="_blank" :to="{
 						        name: 'Blog',
 						    	params: { id: blog.id }
 							}">

@@ -1,4 +1,5 @@
-<script setup lang="ts">
+<script setup>
+import BlogForm from './BlogForm.vue'
 const blog = {
 
 	share:{
@@ -64,8 +65,9 @@ const blog_descr = "N/A"
 									{{blog_descr}}
 								</article>
 							</div>
-							<div class="container-wrap" ui-view>
-						</div>
+							<!-- <div class="container-wrap" ui-view>
+						</div> -->
+							<BlogForm/>
 					</div>
 				</div>
 			</div>
