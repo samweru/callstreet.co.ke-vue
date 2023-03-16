@@ -2,7 +2,7 @@
 	
 	'use strict';
 
-	window.isMobile = {
+	var isMobile = {
 		Android: function() {
 			return navigator.userAgent.match(/Android/i);
 		},
@@ -23,7 +23,7 @@
 		}
 	};
 
-	function mobileMenuOutsideClick() {
+	var mobileMenuOutsideClick = function() {
 
 		$(document).click(function (e) {
 	    var container = $("#fh5co-offcanvas, .js-fh5co-nav-toggle");
@@ -43,7 +43,7 @@
 	};
 
 
-	function offcanvasMenu() {
+	var offcanvasMenu = function() {
 
 		$('#page').prepend('<div id="fh5co-offcanvas" />');
 		$('#page').prepend('<a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle fh5co-nav-white"><i></i></a>');
@@ -87,7 +87,7 @@
 	};
 
 
-	function burgerMenu(){
+	var burgerMenu = function() {
 
 		$('body').on('click', '.js-fh5co-nav-toggle', function(event){
 			var $this = $(this);
@@ -142,7 +142,7 @@
 	};
 
 
-	function dropdown(){
+	var dropdown = function() {
 
 		$('.has-dropdown').mouseenter(function(){
 
@@ -164,7 +164,7 @@
 	};
 
 
-	function goToTop() {
+	var goToTop = function() {
 
 		$('.js-gotop').on('click', function(event){
 			
@@ -196,26 +196,26 @@
 		$(".fh5co-loader").fadeOut("slow");
 	};
 
-	// var counter = function() {
-	// 	$('.js-counter').countTo({
-	// 		 formatter: function (value, options) {
-	//       return value.toFixed(options.decimals);
-	//     },
-	// 	});
-	// };
+	var counter = function() {
+		$('.js-counter').countTo({
+			 formatter: function (value, options) {
+	      return value.toFixed(options.decimals);
+	    },
+		});
+	};
 
 
-	// counterWayPoint = function() {
-	// 	if ($('#fh5co-counter').length > 0 ) {
-	// 		$('#fh5co-counter').waypoint( function( direction ) {
+	var counterWayPoint = function() {
+		if ($('#fh5co-counter').length > 0 ) {
+			$('#fh5co-counter').waypoint( function( direction ) {
 										
-	// 			if( direction === 'down' && !$(this.element).hasClass('animated') ) {
-	// 				setTimeout( counter , 400);					
-	// 				$(this.element).addClass('animated');
-	// 			}
-	// 		} , { offset: '90%' } );
-	// 	}
-	// };
+				if( direction === 'down' && !$(this.element).hasClass('animated') ) {
+					setTimeout( counter , 400);					
+					$(this.element).addClass('animated');
+				}
+			} , { offset: '90%' } );
+		}
+	};
 
 	$.sliderMain = function() {
 		
@@ -247,11 +247,11 @@
 		offcanvasMenu();
 		burgerMenu();
 		$.contentWayPoint();
-		$.sliderMain();
+		// $.sliderMain();
 		dropdown();
 		goToTop();
 		$.loaderPage();
-		// counterWayPoint();
+		counterWayPoint();
 	});
 
 }());
