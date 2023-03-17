@@ -26,7 +26,7 @@
 						<i class="icon-diamond"></i>
 					</span>
 					<div class="desc">
-						<h3><a href="#!/service/{{service.id}}">{{ service.title }}</a></h3>
+						<!-- <h3><a href="#!/service/{{service.id}}">{{ service.title }}</a></h3> -->
 						<p>{{ service.descr }}</p>
 					</div>
 				</div>

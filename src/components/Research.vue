@@ -1,10 +1,11 @@
-<script lang="ts">
+<script>
 export default{
 
 	data(){
 
 		return {
 
+			isReady:false,
 			papers:[
 
 				{
@@ -14,24 +15,40 @@ export default{
 				}
 			],
 			research_type:"Insights",
-			is_authd:false
+			is_authd:true
 		};
 	},
 	methods:{
 
-		downloadInsight(insight:any){
+		downloadInsight: function(insight){
 
 			console.log(insight)
 		},
-		downloadStudy(study:any){
+		downloadStudy: function(study){
 
 			console.log(study)
+		},
+		complete: function(){
+
+			this.isReady = true;	
 		}
+	},
+	setup(){
+
+		setTimeout(function(){
+
+			$.contentWayPoint();
+
+		}, 1000);
+	},
+	created(){
+
+		setTimeout(this.complete, 1000)
 	}
 }
 </script>
 <template>
-	<div class="col-md-4 please-wait" text-center>Please wait..</div>
+	<div v-if="!isReady" class="col-md-4 please-wait" text-center>Please wait..</div>
 	<div id="fh5co-about">
 		<div class="row animate-box">
 			<div class="col-md-6 col-md-offset-3 text-center heading-section">
@@ -53,10 +70,18 @@ export default{
 									@click='downloadStudy(paper.id)'>Download</a>
 							</td>
 							<td v-if="is_authd" class="actions">
-								<a v-if="research_type == 'Insights'" 
+								<RouterLink v-if="research_type == 'Insights'" 
+									:to="{ path: `research/insights/${paper.id}/download` }" download>
+									Download
+								</RouterLink>
+								<RouterLink v-if="research_type == 'Studies'" 
+									:to="{ path: `research/studies/${paper.id}/download` }" download>
+									Download
+								</RouterLink>
+								<!-- <a v-if="research_type == 'Insights'" 
 									href="/research/insights/{{paper.id}}/download" download>Download</a>
 								<a v-if="research_type == 'Studies'" 
-									href="/research/studies/{{paper.id}}/download" download>Download</a>
+									href="/research/studies/{{paper.id}}/download" download>Download</a> -->
 							</td>
 						</tr>
 					</table>

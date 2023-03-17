@@ -1,9 +1,29 @@
-<script setup lang="ts">
-	const info = {
+<script lang="ts">
+export default{
 
-		message:"info-message",
-		success:false
+	data(){
+
+		return {
+
+			form:{
+
+				email:""
+			},
+			info:{
+
+				message:"info-message",
+				success:false
+			}
+		}
+	},
+	methods:{
+
+		sendEmail(event:any){
+
+			console.log(event)
+		}
 	}
+}
 </script>
 <template>
 	<div id="fh5co-contact">
@@ -21,11 +41,11 @@
 	                        {{ info.message }}
 	                    </center>
 	                </div>
-	                <form ng-submit="sendEmail()">
+	                <form @submit.prevent="sendEmail">
 	                    <div class="col-md-10">
 	                        <div class="form-group">
 	                            <input type="email" class="form-control" 
-	                                    ng-model="email" placeholder="email" required>
+	                                    v-model="email" placeholder="email" required>
 	                        </div>
 	                    </div>
 	                    <div class="col-md-10 text-right">

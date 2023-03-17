@@ -1,13 +1,42 @@
-<script setup lang="ts">
-	const service = {
+<script>
+export default{
 
-		name:"service-name-cap",
-		title:"service-title-cap",
-		descr:"service-descr-cap"
+	data(){
+
+		return {
+
+			isReady:false,
+			service:{
+
+				name:"service-name-cap",
+				title:"service-title-cap",
+				descr:"service-descr-cap"
+			}
+		}
+	},
+	methods:{
+
+		complete: function(){
+
+			this.isReady = true;	
+		}
+	},
+	setup(){
+
+		setTimeout(function(){
+
+			$.contentWayPoint();
+
+		}, 1000);
+	},
+	created(){
+
+		setTimeout(this.complete, 1000)
 	}
+}
 </script>
 <template>
-	<div class="col-md-4 please-wait" text-center>Please wait..</div>
+	<div v-if="!isReady" class="col-md-4 please-wait" text-center>Please wait..</div>
 	<div id="fh5co-about">
 		<div class="row animate-box">
 			<div class="col-md-6 col-md-offset-3 text-center heading-section">

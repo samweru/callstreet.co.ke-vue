@@ -1,8 +1,29 @@
-<script setup lang="ts">
-	const info = {
+<script lang="ts">
+export default{
 
-		message:"info-message"
+	data(){
+
+		return {
+
+			form:{
+
+				password:"",
+				repassword:""
+			},
+			info:{
+
+				message:"info-message"
+			}
+		}
+	},
+	methods:{
+
+		resetPassword(event:any){
+
+			console.log(event)
+		}	
 	}
+}
 </script>
 <template>
 	<div id="fh5co-contact">
@@ -20,17 +41,17 @@
 	                        {{ info.message }}
 	                    </center>
 	                </div>
-	                <form ng-submit="resetPassword()">
+	                <form @submit.prevent="resetPassword">
 	                    <div class="col-md-10">
 	                        <div class="form-group">
 	                            <input type="password" class="form-control" 
-	                                    ng-model="password" placeholder="password" required>
+	                                    v-model="password" placeholder="password" required>
 	                        </div>
 	                    </div>
 	                    <div class="col-md-10">
 	                        <div class="form-group">
 	                            <input type="password" class="form-control"
-	                                    ng-model="repassword" placeholder="rePassword" required>
+	                                    v-model="repassword" placeholder="rePassword" required>
 	                        </div>
 	                    </div>
 	                    <div class="col-md-10 text-right">

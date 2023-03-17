@@ -36,7 +36,7 @@
 								<a ng-click="setActive($event)">About Us</a>
 								<ul class="dropdown">
 									<!-- <li><a href="#!/about">Who are we</a></li> -->
-									<li><RouterLink to="/">Home</RouterLink></li>
+									<li><RouterLink to="/about">About</RouterLink></li>
 									<li><RouterLink to="/contacts">Contacts</RouterLink></li>
 									<!-- <li><a href="#!/contacts">Contacts</a></li> -->
 									<!-- <li><a href="#">Our Team</a></li> -->
