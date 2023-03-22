@@ -1,30 +1,51 @@
-<script setup lang="ts">
-const replies = [
+<script>
+import { isProxy, toRaw } from 'vue';
+import { toRefs } from 'vue'
+export default {
 
-	{
-		comment_id:1,
-		author:{
+	props:["replies"],
+	setup(props){
 
-			name:"pitsolu"
-		},
-		has_replies:false,
-		descr: "descr-cap1",
-		date: "date-cap1"
+		const replies = toRefs(props, 'replies')
+
+		return { replies }
 	},
-	{
-		comment_id:2,
-		author:{
+	data(){
 
-			name:"peterparker"
+		return {
+
+			// replies_all:[{
+			// 		comment_id:1,
+			// 		author:{
+
+			// 			name:"pitsolu"
+			// 		},
+			// 		has_replies:false,
+			// 		descr: "descr-cap1",
+			// 		date: "date-cap1"
+			// 	}]
+			replies_all:[]
+		}
+	},
+	methods:{
+
+		replyTo(author_name, comment_id){
+
+
 		},
-		has_replies:false,
-		descr: "descr-cap2",
-		date: "date-cap2"
+		showReplies(event, comment_id){
+
+
+		}
+	},
+	created(){
+
+		this.replies_all = toRaw(this.replies)
 	}
-]
+}
 </script>
 <template>
-	<div class="single-comment-body child" v-for="reply in replies">
+	<div class="single-comment-body child" v-for="reply in replies_all">
 		<!--reply-->
 		<div class="comment-user-avater">
 			<!-- <img src="{{ reply.author.avater }}" alt=""> -->
@@ -32,12 +53,12 @@ const replies = [
 		<div class="comment-text-body" data-id="{{reply.comment_id}}">
 			<h4>{{ reply.author.name }} 
 				<span class="comment-date">{{ reply.date }}</span> 
-				<a ng-click='replyTo(reply.author.name, reply.comment_id)' class="reply-to">reply</a>
+				<a @click='replyTo(reply.author.name, reply.comment_id)' class="reply-to">reply</a>
 			</h4>
 			<p>{{ reply.descr }}</p>
 			<a class="show-reply" 
-				ng-hide="!reply.has_replies"
-				ng-click='showReplies($event, reply.comment_id)'>Show Replies</a>
+				v-show="reply.has_replies"
+				@click='showReplies($event, reply.comment_id)'>Show Replies</a>
 		</div>
 		<!--reply-->
 	</div>

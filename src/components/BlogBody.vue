@@ -1,16 +1,50 @@
-<script setup>
+<script lang="ts">
 import BlogForm from './BlogForm.vue'
-const blog = {
+import { marked } from 'marked'
+export default {
 
-	share:{
+	data(){
 
-		twitter:"/to/twitter",
-		facebook:"/to/facebook",
-		linkedin:"/to/linkedin"
+		return{
+
+			blog:{
+
+				share:{
+
+					twitter:"/to/twitter",
+					facebook:"/to/facebook",
+					linkedin:"/to/linkedin"
+				},
+				descr:""
+			}
+		}
+	},
+	components:{
+
+		BlogForm
+	},
+	methods:{
+
+		async getBlog(){
+
+			// const id = this.$route.params.id
+
+			// console.log(this.$router.currentRoute.value.params.id)
+
+			const id = this.$router.currentRoute.value.params.id
+
+			const res_blog = await this.axios.get("/blog/" + id)
+			const blog = res_blog.data
+
+			const res_md = await this.axios.get("/docs/".concat(blog.path))
+			this.blog.descr = marked(res_md.data)
+		}
+	},
+	async created(){
+
+		await this.getBlog()
 	}
-}
-
-const blog_descr = "N/A" 
+} 
 </script>
 <template>
 		<div class="mt-150 mb-150">
@@ -23,36 +57,21 @@ const blog_descr = "N/A"
 									<p>
 										<ul class="fh5co-social-icons">
 											<li>
-												<!-- <a href="/${blog.share.twitter}" 
-													target="_blank"
-													class="btn btn-share">Share&nbsp;
-														<i class="icon-twitter"></i>
-												</a> -->
-												<RouterLink v-bind:to = "{path:blog.share.twitter}"
+												<RouterLink v-bind:to="{path:blog.share.twitter}"
 													target="_blank"
 													class="btn btn-share">Share&nbsp;
 														<i class="icon-twitter"></i>
 												</RouterLink>
 											</li>
 											<li>
-												<!-- <a href="{{blog.share.facebook}}" 
-													target="_blank"
-													class="btn btn-share">Share&nbsp;
-													<i class="icon-facebook"></i>
-												</a> -->
-												<RouterLink v-bind:to = "{path:blog.share.facebook}"
+												<RouterLink v-bind:to="{path:blog.share.facebook}"
 													target="_blank"
 													class="btn btn-share">Share&nbsp;
 														<i class="icon-facebook"></i>
 												</RouterLink>
 											</li>
 											<li>
-												<!-- <a href="{{blog.share.linkedin}}" 
-													target="_blank"
-													class="btn btn-share">Share&nbsp;
-													<i class="icon-linkedin"></i>
-												</a> -->
-												<RouterLink v-bind:to = "{path:blog.share.linkedin}"
+												<RouterLink v-bind:to="{path:blog.share.linkedin}"
 													target="_blank"
 													class="btn btn-share">Share&nbsp;
 														<i class="icon-linkedin"></i>
@@ -61,12 +80,9 @@ const blog_descr = "N/A"
 										</ul>
 									</p>
 								</span>
-								<article>
-									{{blog_descr}}
+								<article v-html="blog.descr">
 								</article>
 							</div>
-							<!-- <div class="container-wrap" ui-view>
-						</div> -->
 							<BlogForm/>
 					</div>
 				</div>

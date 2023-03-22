@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 import { storeToRefs } from 'pinia'
 import { useBlogStore } from "@/stores/blog.store"
 export default{
@@ -7,6 +7,7 @@ export default{
 
 		setTimeout(function(){
 
+			// @ts-ignore
 			$.contentWayPoint();
 
 		}, 1000);
@@ -18,37 +19,47 @@ export default{
 			blogStore
 		}
 	},
-	async data(){
-
-		const token = this.$route.params.token
-
-		const { blogs } = await this.blogStore.findByTags(token)
+	data(){
 
 		return {
 
-			blogs:blogs
+			blogs:[{
+
+				id:1,
+				title:"",
+				likes:0,
+				views:0,
+				descr:"",
+				date:""
+			}],
+			isReady:false
 		}
+	},
+	methods:{
 
-		// return {
+		async getBlogs():Promise<void>{
 
-		// 	blogs:[
+			const token = this.$route.params.token
 
-		// 		{
-		// 			id:"id-cap1",
-		// 			img:"img-cap1",
-		// 			date:"date-cap1",
-		// 			likes:"likes-cap1",
-		// 			views:"views-cap1",
-		// 			title:"title-cap1",
-		// 			descr:"descr-cap1"
-		// 		}
-		// 	]
-		// }
+			const blogs = await this.blogStore.findByTags("token")
+
+			this.blogs = blogs;
+		},
+		complete: function(){
+
+			this.isReady = true;	
+		}
+	},
+	async created(){
+
+		console.log("created")
+		await this.getBlogs()
+		setTimeout(this.complete, 1000)
 	}
 }
 </script>
 <template>
-	<div class="col-md-4 please-wait" text-center>Please wait..</div>
+	<div v-if="!isReady" class="col-md-4 please-wait" text-center>Please wait..</div>
 	<div id="fh5co-blog">
 		<div class="row">
 			<div v-for="blog in blogs" class="col-md-4">

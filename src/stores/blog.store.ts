@@ -17,6 +17,7 @@ export const useBlogStore = defineStore({
 		    try{
 
 		        const res = await axios.get("/blogs/tag/".concat(tag));
+		        // console.log(res.data)
 		        return res.data
 	    	}
 	    	catch(error){
