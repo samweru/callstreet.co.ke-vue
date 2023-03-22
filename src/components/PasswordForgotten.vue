@@ -11,16 +11,37 @@ export default{
 			},
 			info:{
 
-				message:"info-message",
-				success:false
+				success:false,
+				message:""
 			}
 		}
 	},
 	methods:{
 
-		sendEmail(event:any){
+		async sendEmail(event:any){
 
-			console.log(event)
+			try{
+
+				const res = await this.axios.post("/forgot/password", {
+
+					"email":this.form.email
+
+				},{ headers: { 'Content-Type': 'multipart/form-data' }})
+
+				this.info = {
+
+					success:true,
+					message: "Please check your email."
+				}
+			}
+			catch(error){
+
+				this.info = {
+
+					success:false,
+					message: "Operation failed!"
+				}
+			}
 		}
 	}
 }
@@ -34,18 +55,18 @@ export default{
 	                    <h3>Reset Password</h3>
 	                </div>
 	                <div v-if="info" class="col-md-10">
-	                    <center v-if="info.success" style="color:black;font-weight:bold">
-	                        {{ info.message }}
+	                    <center v-if="info?.success" style="color:black;font-weight:bold">
+	                        {{ info?.message }}
 	                    </center>
-	                     <center v-if="!info.success" style="color:red;font-weight:bold">
-	                        {{ info.message }}
+	                     <center v-if="!info?.success" style="color:red;font-weight:bold">
+	                        {{ info?.message }}
 	                    </center>
 	                </div>
 	                <form @submit.prevent="sendEmail">
 	                    <div class="col-md-10">
 	                        <div class="form-group">
 	                            <input type="email" class="form-control" 
-	                                    v-model="email" placeholder="email" required>
+	                                    v-model="form.email" placeholder="email" required>
 	                        </div>
 	                    </div>
 	                    <div class="col-md-10 text-right">

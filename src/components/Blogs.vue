@@ -1,41 +1,49 @@
 <script>
+import { storeToRefs } from 'pinia'
+import { useBlogStore } from "@/stores/blog.store"
 export default{
 
-	data(){
-
-		return {
-
-			blogs:[
-
-				{
-					id:"id-cap1",
-					img:"img-cap1",
-					date:"date-cap1",
-					likes:"likes-cap1",
-					views:"views-cap1",
-					title:"title-cap1",
-					descr:"descr-cap1"
-				},
-				{
-					id:"id-cap2",
-					img:"img-cap2",
-					date:"date-cap2",
-					likes:"likes-cap2",
-					views:"views-cap2",
-					title:"title-cap2",
-					descr:"descr-cap2"
-				}
-			]
-		}
-	},
 	setup(){
 
 		setTimeout(function(){
 
-			console.log("abc")
 			$.contentWayPoint();
 
 		}, 1000);
+
+		const blogStore = useBlogStore()
+
+		return {
+
+			blogStore
+		}
+	},
+	async data(){
+
+		const token = this.$route.params.token
+
+		const { blogs } = await this.blogStore.findByTags(token)
+
+		return {
+
+			blogs:blogs
+		}
+
+		// return {
+
+		// 	blogs:[
+
+		// 		{
+		// 			id:"id-cap1",
+		// 			img:"img-cap1",
+		// 			date:"date-cap1",
+		// 			likes:"likes-cap1",
+		// 			views:"views-cap1",
+		// 			title:"title-cap1",
+		// 			descr:"descr-cap1"
+		// 		}
+		// 	]
+		// }
 	}
 }
 </script>

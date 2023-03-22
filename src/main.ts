@@ -17,9 +17,16 @@ import './assets/js/magnific-popup-options.js'
 import './assets/js/jquery.countTo.js'
 import './assets/js/main.js'
 
+const pinia = createPinia()
 const app = createApp(App)
+axios.defaults.baseURL = "http://localhost:3000"
+// axios.defaults.baseURL = process.env.baseURL || process.env.apiUrl || '';
+
 
 app.use(createPinia())
+// app.use(VueAxios, axios)
+// app.use(VueAxios)
 app.use(VueAxios, axios)
 app.use(router)
+app.use(pinia)
 app.mount('#app')

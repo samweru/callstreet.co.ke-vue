@@ -1,30 +1,37 @@
 <script lang="ts">
+import { storeToRefs } from "pinia";
+import { useRegisterStore } from "@/stores/register.store";
 export default{
 
+	setup(){
+
+		const registerStore = useRegisterStore()
+		const { form } = storeToRefs(registerStore)
+
+		return {
+
+			registerStore,
+			form
+		}
+	},
 	data(){
 
 		return {
 
-			form:{
-
-				surname:"",
-				othernames:"",
-				username:"",
-				email:"",
-				password:"",
-				repassword:""
-			},
+			// form:form,
 			info:{
 
-				message:"info-message"
+				success:false,
+				message:""
 			}
 		}
 	},
 	methods:{
 
-		registerSubmit(event:any){
+		async registerSubmit(event:any){
 
-			console.log(event)
+			const result = await this.registerStore.create()
+			this.info = result
 		}	
 	}
 }
@@ -40,49 +47,49 @@ export default{
 	                <div class="col-md-12 text-left">
 	                    <h3>Register</h3>
 	                </div>
-	                <div ng-if="info" class="col-md-12">
-	                    <center v-if="info.success" style="color:black;font-weight:bold">
-	                        {{ info.message }}
+	                <div v-if="info" class="col-md-12">
+	                    <center v-if="info?.success" style="color:black;font-weight:bold">
+	                        {{ info?.message }}
 	                    </center>
 	                     <center v-if="!info.success" style="color:red;font-weight:bold">
-	                        {{ info.message }}
+	                        {{ info?.message }}
 	                    </center>
 	                </div>
 	                <form @submit.prevent="registerSubmit">
 	                    <div class="col-md-5">
 	                        <div class="form-group">
 	                            <input type="text" class="form-control" 
-	                                    v-model="surname" placeholder="Surname" required>
+	                                    v-model="form.surname" placeholder="Surname" required>
 	                        </div>
 	                    </div>
 	                    <div class="col-md-7">
 	                        <div class="form-group">
 	                            <input type="text" class="form-control" 
-	                                    v-model="othernames" placeholder="Othernames" required>
+	                                    v-model="form.othernames" placeholder="Othernames" required>
 	                        </div>
 	                    </div>
 	                    <div class="col-md-12">
 	                        <div class="form-group">
 	                            <input type="text" class="form-control" 
-	                                    v-model="username" placeholder="Username" required>
+	                                    v-model="form.username" placeholder="Username" required>
 	                        </div>
 	                    </div>
 	                    <div class="col-md-12">
 	                        <div class="form-group">
 	                            <input type="email" class="form-control" 
-	                                    v-model="email" placeholder="Email" required>
+	                                    v-model="form.email" placeholder="Email" required>
 	                        </div>
 	                    </div>
 	                    <div class="col-md-6">
 	                        <div class="form-group">
 	                            <input type="password" class="form-control" 
-	                                    v-model="password" placeholder="Password" required>
+	                                    v-model="form.password" placeholder="Password" required>
 	                        </div>
 	                    </div>
 	                    <div class="col-md-6">
 	                        <div class="form-group">
 	                            <input type="password" class="form-control" 
-	                                    v-model="repassword" placeholder="Re-Enter Password" required>
+	                                    v-model="form.repassword" placeholder="Re-Enter Password" required>
 	                        </div>
 	                    </div>
 	                    <div class="col-md-12 text-right">

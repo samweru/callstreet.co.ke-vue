@@ -34,6 +34,15 @@ export default{
 
 		Slider
 	},
+	setup(){
+
+		setTimeout(function(){
+
+			// @ts-ignore
+			$.contentWayPoint();
+
+		}, 1000);
+	},
     methods:{
 
     	async getSlides():Promise<void>{

@@ -8,7 +8,7 @@ import Blogs from '../components/Blogs.vue'
 import Blog from '../components/Blog.vue'
 import Login from '../components/Login.vue'
 import PasswordForgotten from '../components/PasswordForgotten.vue'
-// import PasswordReset from '../components/PasswordReset.vue'
+import PasswordReset from '../components/PasswordReset.vue'
 import Register from '../components/Register.vue'
 import Service from '../components/Service.vue'
 import NotFound from '../components/NotFound.vue'
@@ -87,6 +87,12 @@ const router = createRouter({
       path: '/forgot/password',
       name: 'PasswordForgotten',
       component: PasswordForgotten
+      // component: HomeView
+    },
+    {
+      path: '/reset/password',
+      name: 'PasswordReset',
+      component: PasswordReset
       // component: HomeView
     },
     {

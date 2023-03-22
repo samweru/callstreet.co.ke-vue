@@ -1,29 +1,52 @@
 <script lang="ts">
+import { storeToRefs } from 'pinia'
+import { useLoginStore } from "@/stores/login.store"
 export default {
 
+	setup(){
+
+		const loginStore = useLoginStore()
+		const { form } = storeToRefs(loginStore)
+
+		return {
+
+			loginStore,
+			form
+		}
+	},
 	data(){
 
 		return {
 
 			showpass:false,
-			form:{
-
-				email:"",
-				username:"",
-				password:""
-			},
+			// form:this.state,
 			info:{
 
-				success: true,
-				message: "info-msg"
+				success:false,
+				message:""
 			}
 		};
 	},
 	methods:{
 
-		loginSubmit(event:any){
+		async loginSubmit(event:any){
 
-			console.log(event);
+			try{
+
+				if(this.showpass)
+					this.info = await this.loginStore.auth()
+
+				if(!this.showpass)
+					this.info = await this.loginStore.autoAuth()
+			}
+			catch(error){
+
+				this.info = {
+
+					success:false,
+					message:"Operation failed!"
+				}
+			}
 		},
 	}
 }
@@ -41,11 +64,11 @@ export default {
 	                        :class="[showpass ? 'lg-inactive':'lg-active']">Auto-Login</a>
 	                </div>
 	                <div v-if="info" class="col-md-10">
-	                    <center v-if="info.success" style="color:black;font-weight:bold">
-	                        {{ info.message }}
+	                    <center v-if="info?.success" style="color:black;font-weight:bold">
+	                        {{ info?.message }}
 	                    </center>
-	                     <center v-if="!info.success" style="color:red;font-weight:bold">
-	                        {{ info.message }}
+	                     <center v-if="!info?.success" style="color:red;font-weight:bold">
+	                        {{ info?.message }}
 	                    </center>
 	                </div>
 	                <form @submit.prevent="loginSubmit">

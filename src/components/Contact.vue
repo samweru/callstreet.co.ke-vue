@@ -1,5 +1,5 @@
-<!--<script setup lang="js">-->
-<script >
+<script lang="ts">
+import { useContactStore } from "@/stores/contact.store";
 export default {
 
 	data(){
@@ -20,6 +20,7 @@ export default {
 				email:"",
 				descr:""
 			},
+			// info:false,
 			info:{
 
 				success:true,
@@ -32,20 +33,28 @@ export default {
 
 		setTimeout(function(){
 
-			console.log("abc")
+			// @ts-ignore
 			$.contentWayPoint();
 
 		}, 1000);
 	},
 	methods:{
 
-		messageSubmit(){
+		async messageSubmit(){
 
 			this.isSaving = true
 
-			setTimeout(this.clearForm, 1000)
+			try{
+				
+				const contactStore = useContactStore();
+				await contactStore.send(this.form.name, this.form.email, this.form.descr)
+				this.clearForm()
+				console.log("message-submit")
+			}
+			catch(error){
 
-			console.log("message-submit")
+				console.log("message-submit-failed")				
+			}
 		},
 		clearForm(){
 
