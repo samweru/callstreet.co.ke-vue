@@ -1,9 +1,24 @@
 <script lang="ts">
 import BlogComment from './BlogComment.vue'	
-// import { useRoute } from 'vue-router'
-
+import { nextTick } from 'vue';
 export default {
 
+	// props:["blog_id"],
+	// setup(props){
+
+	// 	const state = toRaw(props)
+
+	// 	return { 
+			
+	// 		blog:{
+
+	// 			// id:state.blog_id,
+	// 			// id:this.$route.params.id,
+	// 			authd_user:false,
+	// 			reply_to:"pitsolu"
+	// 		}
+	// 	}
+	// },
 	data(){
 
 		return {
@@ -11,7 +26,8 @@ export default {
 			form:{
 
 				fullname:"",
-				email:""
+				email:"",
+				comment_id:0
 			},
 			info:{
 
@@ -21,8 +37,10 @@ export default {
 			blog:{
 
 				authd_user:false,
-				reply_to:"pitsolu"
-			}
+				reply_to:"None",
+				id:0
+			},
+			show_comments:false
 		};
 	},
 	components:{
@@ -35,9 +53,11 @@ export default {
 
 			console.log(event);
 		},
-		showComments(){
+		async showComments(){
 
-			console.log("show-comments")
+			this.show_comments = false
+			await nextTick()
+			this.show_comments = true
 		},
 		redirectToLogin(){
 
@@ -47,14 +67,14 @@ export default {
 
 			console.log("clear-form")
 		}
+	},
+	created(){
+
+		// @ts-ignore
+		this.blog.id = this.$route.params.id
+		this.show_comments = true
 	}
 }
-
-// const redirectToLogin = function(){
-
-// 	alert("login")
-// }
-
 </script>
 <template>
 	<!--Comments-->
@@ -62,7 +82,8 @@ export default {
 		@click='showComments($event)'>Refresh Comments</a> -->
 	<a class="show-comments" style="padding-left:50px"
 		@click='showComments'>Refresh Comments</a>
-	<BlogComment/>
+	<div v-if="!show_comments" class="col-md-4 please-wait" text-center>Please wait..</div>
+	<BlogComment v-if="show_comments"/>
 	<!--Comments-->
 	<div style="padding-left:50px" class="comment-template">
 		<h4>Leave a comment</h4>
@@ -77,13 +98,13 @@ export default {
 			{{ info.message }}
 		</div>
 		<!-- <form ng-init="clearForm()" ng-submit="commentSubmit()"> -->
-		<form @submit.prevent="commentSubmit" @created="clearForm">
-			<!-- <input type="hidden" :value="form.reply_to" v-model="reply_to"> -->
+		<form @submit.prevent="commentSubmit" ref="comment-form">
+			<input type="hidden" ref="comment-id" v-model="form.comment_id">
 			<!-- <input :value="form.reply_to" v-model="reply_to"> -->
 			<p>
 				<label for="reply_to">Reply To:</label>
 				<span>
-					<b name="reply_to">&nbsp;{{blog.reply_to}}</b>
+					<b name="reply_to" ref="reply-to">&nbsp;{{blog.reply_to}}</b>
 				</span>
 			</p>
 			<p v-if="!blog.authd_user">
@@ -93,7 +114,7 @@ export default {
 						placeholder="Your Email" required>
 			</p>
 			<p>
-				<!--{{250 - form.message.length}} left-->
+				<!-- {{250 - form.message.length}} left -->
 				<!-- <textarea name="message" id="message" maxlength="250"  
 							v-model="form.message"
 							cols="30" rows="10" placeholder="Your Message" required> -->

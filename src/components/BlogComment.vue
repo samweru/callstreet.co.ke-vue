@@ -16,7 +16,8 @@ export default {
 
 						{
 
-							comment_id:0,
+							id:0,
+							comment_id:1,
 							author:{
 
 								name:"-"
@@ -45,10 +46,12 @@ export default {
 			this.blog.comments.how_many = comments.length
 			this.blog.comments.list = comments
 		},
-		async showReplies(event:any, comment_id){
+		async showReplies(event:any, comment_id:any){
 
 			// console.log(event)
 			// console.log(comment_id)
+			// console.log("************")
+			// console.log(event)
 
 			const res_replies = await this.axios.get("/replies")
 			const replies = toRaw(res_replies.data)
@@ -64,9 +67,17 @@ export default {
 			// console.log("===")
 			// console.log(this.blog)
 		},
-		replyTo(author_name, comment_id){
+		
+		replyTo(author_name:string, comment_id:any){
 
-			//
+			if(this.$parent != null){
+
+				(this.$parent.$refs["comment-form"] as any).scrollIntoView({ behavior: "smooth" });
+				// @ts-ignore
+				this.$parent.form.comment_id = comment_id
+				// @ts-ignore
+				this.$parent.blog.reply_to = author_name
+			}
 		},
 	},
 	async created(){
@@ -109,7 +120,7 @@ export default {
 					<!-- <template v-for="replies in comment.replies"> -->
 					<template v-for="replies in comment.replies">
 						<!-- <B>A</B> -->
-						<BlogCommentReply v-bind:replies="replies" />
+						<BlogCommentReply :replies="replies" />
 					</template>		
 					<!--replies-->
 				</div>
