@@ -11,7 +11,7 @@
 
 		name: "pitsolu"
 	}
-	const token = "token-cap"
+	const token = "stocks"
 </script>
 <template>
 	<nav class="fh5co-nav" role="navigation">

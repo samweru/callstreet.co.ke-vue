@@ -1,8 +1,20 @@
 <script lang="ts">
 import BlogCommentReply from "./BlogCommentReply.vue"
 import { isProxy, toRaw } from 'vue';
+import { useBlogStore } from "@/stores/blog.store"
 export default {
 
+	setup(){
+
+		const blogStore = useBlogStore()
+		// const { form } = storeToRefs(loginStore)
+
+		return {
+
+			blogStore,
+			// form
+		}
+	},
 	data(){
 
 		return {
@@ -40,8 +52,11 @@ export default {
 
 		async getComments(){
 
-			const res_comments = await this.axios.get("/comments")
-			const comments = res_comments.data
+			// const res_comments = await this.axios.get("/comments")
+			// const comments = res_comments.data
+
+			const id = this.$route.params.id
+			const comments = await this.blogStore.getComments(id)
 
 			this.blog.comments.how_many = comments.length
 			this.blog.comments.list = comments
@@ -53,11 +68,13 @@ export default {
 			// console.log("************")
 			// console.log(event)
 
-			const res_replies = await this.axios.get("/replies")
-			const replies = toRaw(res_replies.data)
+			// const res_replies = await this.axios.get("/replies")
+			// const replies = toRaw(res_replies.data)
 			// console.log("===")
 			// console.log(replies)
 			// this.blog.comments.list[0].replies = replies
+
+			const replies = await this.blogStore.getReplies(comment_id)
 
 			for(let idx in this.blog.comments.list)
 				if(this.blog.comments.list[idx].id == comment_id)
@@ -99,7 +116,7 @@ export default {
 				</div>
 				<!--comment-->
 				<!-- <div v-if="comment.author" class="comment-text-body" data-id="{{comment.comment_id}}"> -->
-				<div class="comment-text-body" data-id="{{comment.comment_id}}">
+				<div class="comment-text-body" :data-comment-id="comment.comment_id">
 					<h4>{{ comment.author.name }}
 						<span class="comment-date">{{ comment.date }}</span> 
 						<a @click="replyTo(comment.author.name, comment.comment_id)" 

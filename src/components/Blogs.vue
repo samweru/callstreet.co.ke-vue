@@ -39,9 +39,10 @@ export default{
 
 		async getBlogs():Promise<void>{
 
-			const token = this.$route.params.token
+			// @ts-ignore
+			const token:string = this.$route.params.token
 
-			const blogs = await this.blogStore.findByTags("token")
+			const blogs = await this.blogStore.findByTags(token)
 
 			this.blogs = blogs;
 		},
