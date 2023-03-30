@@ -5,6 +5,8 @@ import App from './App.vue'
 import router from './router'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+import Vue3Storage, { StorageType } from "vue3-storage";
+
 
 import './assets/main.css'
 import './assets/js/jquery.min.js'
@@ -24,6 +26,7 @@ axios.defaults.baseURL = "http://localhost:3000"
 
 
 app.use(createPinia())
+app.use(Vue3Storage, { namespace: "pro_", storage: StorageType.Local })
 // app.use(VueAxios, axios)
 // app.use(VueAxios)
 app.use(VueAxios, axios)

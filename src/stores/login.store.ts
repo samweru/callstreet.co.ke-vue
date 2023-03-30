@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import axios from "axios";
+// import { router } from '@/router';
 
 export const useLoginStore = defineStore({
 	id:"login",
@@ -9,10 +10,11 @@ export const useLoginStore = defineStore({
 
 			form:{
 
-				email:"pitsolu@gmail.com",
+				email:"",
 				username:"",
 				password:""
-			}		
+			},
+			// user: JSON.parse(localStorage.getItem('user')),		
 		}
 	},
   	actions:{
@@ -26,6 +28,9 @@ export const useLoginStore = defineStore({
 					"email":this.form.email
 
 				},{ headers: { 'Content-Type': 'multipart/form-data' }})
+
+				// this.user = .res.user;
+                // localStorage.setItem('user', JSON.stringify(user));
 
 				return {
 
@@ -70,6 +75,12 @@ export const useLoginStore = defineStore({
 			    	"message":"Operation failed!"
 			    }
 	    	}
-	  	}
+	  	},
+	  	logout() {
+	  		
+            // this.user = null;
+            // localStorage.removeItem('user');
+            // router.push('/account/login');
+        }
   	}
 })
