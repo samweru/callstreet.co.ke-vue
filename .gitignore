@@ -17,7 +17,7 @@ coverage
 /cypress/videos/
 /cypress/screenshots/
 /json
-/public/docs.bak
+/public/docs
 # public
 
 # Editor directories and files
