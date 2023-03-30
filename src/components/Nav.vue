@@ -1,17 +1,38 @@
-<script setup lang="ts">
-// import { RouterLink } from 'vue-router'
-	const title = "service-cap"
-	const id = "id-cap"
-	const name = "name-cap"
-	const status = {
+<script lang="ts">
+import { storeToRefs } from 'pinia'
+import { useLoginStore } from "@/stores/login.store"
+export default {
 
-		online:"Offline"
-	} 
-	const user = {
+	setup(){
 
-		name: "pitsolu"
+		const loginStore = useLoginStore()
+		const { user } = storeToRefs(loginStore)
+
+		return {
+
+			loginStore,
+			user
+		}
+	},
+	data(){
+
+		return {
+
+			title:"service-cap",
+			id:"id-cap",
+			name:"name-cap",
+			// status:{
+
+				// online:"Offline"
+			// }, 
+			// user:{
+
+				// name: "pitsolu"
+			// },
+			token:"stocks"
+		}
 	}
-	const token = "stocks"
+}
 </script>
 <template>
 	<nav class="fh5co-nav" role="navigation">
@@ -93,11 +114,11 @@
 			</div>
 		</div>
 	</div>
-	<div ng-show="!online" class="container-wrap login-strip" ng-cloak>
+	<!-- <div ng-show="!online" class="container-wrap login-strip" ng-cloak>
 		<div>{{status.online}}</div>
-	</div>
+	</div> -->
 
-	<div ng-if="user.authd" class="container-wrap login-strip" ng-cloak>
+	<div v-if="user.email" class="container-wrap login-strip" ng-cloak>
 		<!--<a href="/home">{{user.name}}</a>&nbsp;|&nbsp;-->
 		<!-- <a href="/logout">Logout</a> -->
 		<RouterLink to="/home">{{user.name}}</RouterLink>&nbsp;|&nbsp;

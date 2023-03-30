@@ -29,6 +29,10 @@ export default {
 	},
 	methods:{
 
+		redirectToHome(){
+
+			this.$router.push("/home")
+		},
 		async loginSubmit(event:any){
 
 			try{
@@ -38,6 +42,9 @@ export default {
 
 				if(!this.showpass)
 					this.info = await this.loginStore.autoAuth()
+
+				if(this.info.success)
+					this.redirectToHome()
 			}
 			catch(error){
 
