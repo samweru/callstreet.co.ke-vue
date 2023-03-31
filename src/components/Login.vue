@@ -19,7 +19,9 @@ export default {
 		return {
 
 			showpass:false,
-			// form:this.state,
+			disable_email:false,
+			disable_username:true,
+			disable_password:true,
 			info:{
 
 				success:false,
@@ -31,22 +33,57 @@ export default {
 
 		redirectToHome(){
 
-			this.$router.push("/home")
+			this.$router.push("/")
+		},
+		disableLogin(disable:boolean = true){
+
+			this.disable_password = disable
+			this.disable_username = disable
+		},
+		disableAutoLogin(disable:boolean = true){
+
+			this.disable_email = disable
+		},
+		showAutoLogin(toggle:boolean){
+
+			this.showpass = !toggle
+			this.disableLogin(toggle)
+			this.disableAutoLogin(!toggle)
 		},
 		async loginSubmit(event:any){
 
+			let disableForm = this.disableLogin
+
 			try{
 
-				if(this.showpass)
-					this.info = await this.loginStore.auth()
+				this.info = {
 
-				if(!this.showpass)
+					success:true,
+					message:"Wait..."
+				}
+
+				if(this.showpass){
+
+					disableForm()
+					this.info = await this.loginStore.auth()
+				}
+
+				if(!this.showpass){
+
+					disableForm = this.disableAutoLogin
+					disableForm()
 					this.info = await this.loginStore.autoAuth()
+				}
 
 				if(this.info.success)
-					this.redirectToHome()
+					setTimeout(this.redirectToHome, 1000)
+
+				if(!this.info.success)
+					disableForm(false)
 			}
 			catch(error){
+
+				disableForm(false)
 
 				this.info = {
 
@@ -64,10 +101,10 @@ export default {
 	        <div class="col-md-7 col-md-offset-3 text-center">
 	            <div class="row">
 	                <div class="col-md-10 text-left which-login">
-	                    <a @click="showpass = true" 
+	                    <a @click="showAutoLogin(false)" 
 	                        :class="[showpass ? 'lg-active':'lg-inactive']">Login</a>
 	                        &nbsp;&nbsp;|&nbsp;&nbsp;
-	                    <a @click="showpass = false" 
+	                    <a @click="showAutoLogin(true)" 
 	                        :class="[showpass ? 'lg-inactive':'lg-active']">Auto-Login</a>
 	                </div>
 	                <div v-if="info" class="col-md-10">
@@ -83,21 +120,21 @@ export default {
 	                        <div class="form-group">
 	                            <input type="email" class="form-control"
 	                                    v-model="form.email" placeholder="email" 
-	                                    :disabled="showpass" required>
+	                                    :disabled="disable_email" required>
 	                        </div>
 	                    </div>
 	                    <div class="col-md-10" v-show="showpass">
 	                        <div class="form-group">
 	                            <input type="text" class="form-control" 
 	                                    v-model="form.username" placeholder="Username" 
-	                                    :disabled="!showpass" required>
+	                                    :disabled="disable_username" required>
 	                        </div>
 	                    </div>
 	                    <div class="col-md-10" v-show="showpass">
 	                        <div class="form-group">
 	                            <input type="password" class="form-control"
 	                                    v-model="form.password" placeholder="Password"
-	                                    :disabled="!showpass" required>
+	                                    :disabled="disable_password" required>
 	                        </div>
 	                    </div>
 	                    <div class="col-md-10 text-right">

@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 import axios from "axios";
 // import { useStorage } from "vue3-storage";
 
-// import { router } from '@/router';
+import router from '@/router';
 import { useStorage } from '@vueuse/core'
 
 export const useLoginStore = defineStore({
@@ -113,9 +113,8 @@ export const useLoginStore = defineStore({
 	  	},
 	  	logout() {
 	  		
-            // this.user = null;
-            // localStorage.removeItem('user');
-            // router.push('/account/login');
+            this.user = {email:null, name:null};
+            router.push('/');
         }
   	}
 })

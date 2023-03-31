@@ -122,7 +122,8 @@ export default {
 		<!--<a href="/home">{{user.name}}</a>&nbsp;|&nbsp;-->
 		<!-- <a href="/logout">Logout</a> -->
 		<RouterLink to="/home">{{user.name}}</RouterLink>&nbsp;|&nbsp;
-		<RouterLink to="/logout">Logout</RouterLink>
+		<!-- <RouterLink to="/logout">Logout</RouterLink> -->
+		<a exact :style="{ cursor: 'pointer'}" @click="loginStore.logout">Logout</a>
 	</div>
 </nav>
 </template>
