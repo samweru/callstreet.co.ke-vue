@@ -1,6 +1,6 @@
 import { setActivePinia, createPinia } from 'pinia'
 import { useLoginStore } from '../login.store'
-import { describe, it, expect, beforeEach } from 'vitest'
+import { describe, it as test, expect, beforeEach } from 'vitest'
 
 
 describe('login:store', () => {
@@ -11,7 +11,7 @@ describe('login:store', () => {
     setActivePinia(createPinia())
   })
 
-  it('plain:auth', async() => {
+  test('plain:auth', async() => {
 
     const loginStore = useLoginStore()
     loginStore.form = {
@@ -26,10 +26,10 @@ describe('login:store', () => {
     console.log(res)
   })
 
-  it('auto:auth', async() => {
+  test('auto:auth', async() => {
 
     const loginStore = useLoginStore()
-    loginStore.email = "pitsolu@gmail.com"
+    loginStore.form.email = "pitsolu@gmail.com"
 
     const res = await loginStore.autoAuth()
     expect(res.success).toBe(true)

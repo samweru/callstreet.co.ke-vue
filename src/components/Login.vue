@@ -6,13 +6,19 @@ export default {
 	setup(){
 
 		const loginStore = useLoginStore()
-		const { form } = storeToRefs(loginStore)
+		const { form, user } = storeToRefs(loginStore)
 
 		return {
 
 			loginStore,
+			user,
 			form
 		}
+	},
+	mounted(){
+
+		if(this.user.email)
+			this.redirectToHome()
 	},
 	data(){
 

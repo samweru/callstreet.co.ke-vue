@@ -1,6 +1,5 @@
 import { defineStore } from 'pinia'
 import axios from "axios";
-// import { useStorage } from "vue3-storage";
 
 import router from '@/router';
 import { useStorage } from '@vueuse/core'
@@ -8,10 +7,6 @@ import { useStorage } from '@vueuse/core'
 export const useLoginStore = defineStore({
 	id:"login",
 	state:function(){
-
-		// const storage = useStorage();
-		// const user = storage.getStorage({key:"user"})
-
 
 		return {
 
@@ -21,18 +16,11 @@ export const useLoginStore = defineStore({
 				username:"",
 				password:""
 			},
-			email:"",
 			user: useStorage("user", {
 
 				email:null,
 				name:null
 			}),	
-			// user: user,	
-			// user: storage.setStorageSync("user", {
-
-			// 	email:"",
-			// 	username:""
-			// }),	
 		}
 	},
   	actions:{
@@ -51,21 +39,6 @@ export const useLoginStore = defineStore({
 					email:res.data.email,
 					name:res.data.username
 				}
-
-				// useStorage("user", {
-
-				// 	email:this.email,
-				// 	name:res.data?.[0].username || res.data.username
-				// })
-
-				// const storage = useStorage()
-				// storage.setStorageSync("user", {
-
-					// email:this.email,
-					// name:res.data?.[0].username || res.data.username
-				// })
-				// const storeRes = await storage.getStorage({key:"user"})
-				// console.log("Email: "+ storeRes.data.email)
 
 				return {
 
