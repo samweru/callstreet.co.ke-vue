@@ -23,7 +23,7 @@ export const useBlogStore = defineStore({
 	},
   	actions:{
 
-	  	async findByTags(tag:string){
+	  	async findByTag(tag:string){
 
 	  		const url = "/article/tag/" + tag
 

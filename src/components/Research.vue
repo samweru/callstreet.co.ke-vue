@@ -1,49 +1,90 @@
-<script>
-export default{
+<script lang="ts">
+import { storeToRefs } from 'pinia'
+import { useLoginStore } from "@/stores/login.store"
+export default {
 
+	setup(){
+
+		setTimeout(function(){
+
+			// @ts-ignore
+			$.contentWayPoint();
+
+		}, 1000);
+
+		const loginStore = useLoginStore()
+		const { user } = storeToRefs(loginStore)
+
+		return {
+
+			user
+		}
+	},
 	data(){
 
 		return {
 
 			isReady:false,
 			papers:[
-
 				{
-
-					id:"id-cap1",
-					name:"name-cap1"
+					id:"",
+					name:""
 				}
 			],
-			research_type:"Insights",
-			is_authd:true
+			research_type:"",
+			is_authd:false
 		};
 	},
 	methods:{
 
-		downloadInsight: function(insight){
+		downloadInsight: function(insight:any){
 
-			console.log(insight)
+			this.redirectToLogin()
 		},
-		downloadStudy: function(study){
+		downloadStudy: function(study:any){
 
-			console.log(study)
+			this.redirectToLogin()
 		},
 		complete: function(){
 
 			this.isReady = true;	
+		},
+		redirectToLogin(){
+
+			this.$router.push("/login")
+		},
+		async getResearch(type:String):Promise<void>{
+
+			if(type == "insight"){
+
+				this.research_type = "Insights"
+				type = "insights"
+			}
+
+			if(type == "studies")
+				this.research_type = "Studies"
+
+			const papers = await this.axios.post("/research/"+type+"/list")
+			this.papers = papers.data
 		}
 	},
-	setup(){
+	async created(){
 
-		setTimeout(function(){
-
-			$.contentWayPoint();
-
-		}, 1000);
-	},
-	created(){
+		if(this.user?.name)
+			this.is_authd = true
 
 		setTimeout(this.complete, 1000)
+		const type = this.$route.params.type as string
+		await this.getResearch(type)
+	},
+	async beforeRouteUpdate (to, from, next) {
+
+		if(this.user?.name)
+			this.is_authd = true
+
+	  	const type = this.$route.params.type as string
+		await this.getResearch(type)
+	  	next();
 	}
 }
 </script>
@@ -71,11 +112,11 @@ export default{
 							</td>
 							<td v-if="is_authd" class="actions">
 								<RouterLink v-if="research_type == 'Insights'" 
-									:to="{ path: `research/insights/${paper.id}/download` }" download>
+									:to="{ path: `/research/insights/${paper.id}/download` }" download>
 									Download
 								</RouterLink>
 								<RouterLink v-if="research_type == 'Studies'" 
-									:to="{ path: `research/studies/${paper.id}/download` }" download>
+									:to="{ path: `/research/studies/${paper.id}/download` }" download>
 									Download
 								</RouterLink>
 								<!-- <a v-if="research_type == 'Insights'" 

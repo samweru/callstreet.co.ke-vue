@@ -1,6 +1,19 @@
 <script lang="ts">
 import { storeToRefs } from 'pinia'
 import { useLoginStore } from "@/stores/login.store"
+
+type Tag = {
+
+	name:string,
+	token:string
+}
+
+type Service = {
+
+	id:string,
+	title:string
+}
+
 export default {
 
 	setup(){
@@ -16,10 +29,13 @@ export default {
 	},
 	data(){
 
+		let tags: Tag[] = [];
+		let services: Service[] = [];
+
 		return {
 
-			tags:[],
-			services:[]
+			tags:tags,
+			services:services
 		}
 	},
 	methods:{
@@ -27,11 +43,13 @@ export default {
 		async getServiceList():Promise<void>{
 
 			const services = await this.axios.post("/ref/service/list")
+			// return services.data
 			this.services = services.data
 		},
 		async getTags():Promise<void>{
 
 			const tags = await this.axios.post("/ref/tags")
+			// return tags.data
 			this.tags = tags.data
 		}
 	},
@@ -112,9 +130,9 @@ export default {
 									<RouterLink
 								      :to="{
 								        name: 'BlogTag',
-								        params: { token: tag.token }
+								        params: { tag: tag.token }
 								      }">
-								    	tag.name
+								    	{{tag.name}}
 								    </RouterLink>
 								</li>
 								<!-- {{end:tags}} -->

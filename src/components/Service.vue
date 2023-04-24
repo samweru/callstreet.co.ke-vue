@@ -10,6 +10,7 @@ export default{
 
 		setTimeout(function(){
 
+			// @ts-ignore
 			$.contentWayPoint();
 
 		}, 1000);
@@ -24,13 +25,7 @@ export default{
 
 		return {
 
-			isReady:false//,
-			// service:{
-
-			// 	name:"",
-			// 	title:"",
-			// 	descr:""
-			// }
+			isReady:false
 		}
 	},
 	methods:{
@@ -39,23 +34,17 @@ export default{
 
 			this.isReady = true;	
 		}
-		//,
-		// async getService(id:int):Promise<void>{
-
-		// 	const service = await this.axios.post("/ref/service/".concat(id))
-		// 	this.service = service.data
-		// }
 	},
 	async created(){
 
 		setTimeout(this.complete, 1000)
-		const id = this.$route.params.id
-		await this.serviceLsStore.getService(id)
+		const id = this.$route.params.id as string
+		await this.serviceLsStore.getService(Number(id))
 	},
 	async beforeRouteUpdate (to, from, next) {
 
 	  const id = to.params.id;
-	  await this.serviceLsStore.getService(id)
+	  await this.serviceLsStore.getService(Number(id))
 	  next();
 	}
 }

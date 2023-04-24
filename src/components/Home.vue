@@ -8,12 +8,20 @@ export default{
 
 		let slides:String[] = []
 		let about:String = ""
+		type Blog = {
+
+			id:number,
+			img:string,
+			title:string
+		}
+
+		let blogs: Blog[] = [];
 
 		return {
 
 			slides:slides,
 			about:about,
-			articles:[]
+			articles:blogs
 		};		
 	},
 	components:{

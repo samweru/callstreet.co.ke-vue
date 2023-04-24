@@ -4,11 +4,19 @@ export default{
 
 	data(){
 
+		type Blog = {
+
+			id:string,
+			title:string
+		}
+
+		let blogs: Blog[] = [];
+
 		return {
 
 			contacts:"",
 			about:"",
-			blogs:[]
+			blogs: blogs
 		};		
 	},
     methods:{
@@ -42,7 +50,7 @@ export default{
 					<li v-for="blog in blogs">
 						<RouterLink target="_blank" :to="{
 					        name: 'Blog',
-					    	params: { id: blog.id }
+					    	params: { id: blog!.id }
 						}">
 						<a>{{ blog.title }}</a>
 						</RouterLink>

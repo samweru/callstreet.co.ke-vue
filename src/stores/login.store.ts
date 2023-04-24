@@ -18,8 +18,8 @@ export const useLoginStore = defineStore({
 			},
 			user: useStorage("user", {
 
-				email:null,
-				name:null
+				email:"",
+				name:""
 			}),	
 		}
 	},
@@ -36,8 +36,8 @@ export const useLoginStore = defineStore({
 
 				this.user = {
 
-					email:res.data.email,
-					name:res.data.username
+					email:this.form.email,
+					name:res.data.data.username
 				}
 
 				return {
@@ -86,7 +86,7 @@ export const useLoginStore = defineStore({
 	  	},
 	  	logout() {
 	  		
-            this.user = {email:null, name:null};
+            this.user = {email:"", name:""};
             router.push('/');
         }
   	}

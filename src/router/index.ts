@@ -1,17 +1,17 @@
 import { createRouter, createWebHistory } from 'vue-router'
 // import HomeView from '../views/HomeView.vue'
-import Home from '../components/Home.vue'
-import About from '../components/About.vue'
-import Contact from '../components/Contact.vue'
-import Research from '../components/Research.vue'
-import Blogs from '../components/Blogs.vue'
-import Blog from '../components/Blog.vue'
-import Login from '../components/Login.vue'
-import PasswordForgotten from '../components/PasswordForgotten.vue'
-import PasswordReset from '../components/PasswordReset.vue'
-import Register from '../components/Register.vue'
-import Service from '../components/Service.vue'
-import NotFound from '../components/NotFound.vue'
+import Home from '@/components/Home.vue'
+import About from '@/components/About.vue'
+import Contact from '@/components/Contact.vue'
+import Research from '@/components/Research.vue'
+import Blogs from '@/components/Blogs.vue'
+import Blog from '@/components/Blog.vue'
+import Login from '@/components/Login.vue'
+import PasswordForgotten from '@/components/PasswordForgotten.vue'
+import PasswordReset from '@/components/PasswordReset.vue'
+import Register from '@/components/Register.vue'
+import Service from '@/components/Service.vue'
+import NotFound from '@/components/NotFound.vue'
 
 // import * as $ from '@js/bootstrap.min.js'
 
@@ -30,7 +30,6 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: Home
-      // component: HomeView
     },
     {
       path: '/about',
@@ -45,67 +44,61 @@ const router = createRouter({
       path: '/contacts',
       name: 'contacts',
       component: Contact
-      // component: HomeView
     },
     {
-      path: '/research/insight',
-      name: 'ResearchInsight',
+      path: '/research/:type',
+      name: 'Research',
       component: Research
-      // component: HomeView
     },
+    // {
+    //   path: '/research/insight',
+    //   name: 'ResearchInsight',
+    //   component: Research
+    // },
+    // {
+    //   path: '/research/studies',
+    //   name: 'ResearchStudy',
+    //   component: Research
+    // },
     {
-      path: '/research/studies',
-      name: 'ResearchStudy',
-      component: Research
-      // component: HomeView
-    },
-    {
-      path: '/blogs/:token',
+      path: '/blogs/:tag',
       name: 'BlogTag',
       component: Blogs
-      // component: HomeView
     },
     {
       path: '/blog/:id',
       name: 'Blog',
       component: Blog
-      // component: HomeView
     },
     {
       path: '/service/:id',
       name: 'Service',
       component: Service
-      // component: HomeView
     },
     {
       path: '/login',
       name: 'Login',
       component: Login
-      // component: HomeView
     },
     {
       path: '/forgot/password',
       name: 'PasswordForgotten',
       component: PasswordForgotten
-      // component: HomeView
     },
     {
       path: '/reset/password',
       name: 'PasswordReset',
       component: PasswordReset
-      // component: HomeView
     },
     {
       path: '/register',
       name: 'Register',
       component: Register
-      // component: HomeView
     },
     {
       path: '/404',
       name: 'NotFound',
       component: NotFound
-      // component: HomeView
     },
     { 
       path: '/:pathMatch(.*)', 

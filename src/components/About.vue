@@ -29,6 +29,7 @@ export default{
 
 		setTimeout(function(){
 
+			// @ts-ignore
 			$.contentWayPoint();
 
 		}, 1000);
