@@ -1,26 +1,40 @@
-<script setup lang="ts">
-	const about = "about-cap"
-	const blogs = [
+<script lang="ts">
+import { marked } from 'marked'
+export default{
 
-		{
+	data(){
 
-			title:"blog-title1",
-			id:"id-cap1"
-		},
-		{
+		return {
 
-			title:"blog-title2",
-			id:"id-cap2"
-		},
-	]
-	const contacts = "contact-cap"
+			contacts:"",
+			about:"",
+			blogs:[]
+		};		
+	},
+    methods:{
+
+    	async getBrief():Promise<void>{
+
+    		const brief = await this.axios.post("/ref/brief")
+	  		this.blogs = brief.data.blogs
+	  		this.about = marked(brief.data.about)
+
+	  		const contacts = await this.axios.post("/contacts")
+	  		this.contacts = contacts.data
+    	}
+    },
+    async created(){
+
+    	await this.getBrief()
+    }
+}
 </script>
 <template>
 	<footer id="fh5co-footer" role="contentinfo">
 		<div class="row">
 			<div class="col-md-3 fh5co-widget">
 				<h4>About Callstreet</h4>
-				<p>{{ about }}</p>
+				<p v-html="about"></p>
 			</div>
 			<div class="col-md-3 col-md-push-1">
 				<h4>Latest Posts</h4>
@@ -40,7 +54,7 @@
 				<h4>Links</h4>
 				<ul class="fh5co-footer-links">
 					<li><RouterLink to="/">Home</RouterLink></li>
-					<li><RouterLink to="/about">Home</RouterLink></li>
+					<li><RouterLink to="/about">About</RouterLink></li>
 					<!-- <li><a href="/#!/home">Home</a></li>
 					<li><a href="/#!/about">About us</a></li> -->
 				</ul>
@@ -48,7 +62,7 @@
 
 			<div class="col-md-3">
 				<h4>Contact Information</h4>
-				<span>{{contacts}}</span>
+				<span v-html="contacts"></span>
 			</div>
 
 		</div>

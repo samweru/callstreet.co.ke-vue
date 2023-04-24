@@ -18,19 +18,27 @@ export default {
 
 		return {
 
-			title:"service-cap",
-			id:"id-cap",
-			name:"name-cap",
-			// status:{
-
-				// online:"Offline"
-			// }, 
-			// user:{
-
-				// name: "pitsolu"
-			// },
-			token:"stocks"
+			tags:[],
+			services:[]
 		}
+	},
+	methods:{
+
+		async getServiceList():Promise<void>{
+
+			const services = await this.axios.post("/ref/service/list")
+			this.services = services.data
+		},
+		async getTags():Promise<void>{
+
+			const tags = await this.axios.post("/ref/tags")
+			this.tags = tags.data
+		}
+	},
+	async created(){
+
+		await this.getServiceList()
+		await this.getTags()
 	}
 }
 </script>
@@ -69,8 +77,11 @@ export default {
 									<!-- {{begin:services}} -->
 									<!--<li><a href="/service/{{id}}">{{title}}</a></li>-->
 									<!-- <li><RouterLink to="/service/{{id}}">{{title}}</RouterLink></li> -->
-									<li><RouterLink v-bind:to = "{path:'/service/'.concat(id)}">
-											{{title}}
+									
+									<li v-for="(service, idx) in services">
+										<RouterLink 
+											v-bind:to = "{path:'/service/'.concat(service.id)}">
+											{{service.title}}
 										</RouterLink>
 									</li>
 									<!-- {{end:services}} -->
@@ -97,13 +108,13 @@ export default {
 								<!-- {{begin:tags}} -->
 								<!-- <li><a href="/blogs/{{token}}">{{name}}</a></li> -->
 								<!--<li><RouterLink to="/blogs/{{token}}">Contacts</RouterLink></li>-->
-								<li>
+								<li v-for="(tag, idx) in tags">
 									<RouterLink
 								      :to="{
 								        name: 'BlogTag',
-								        params: { token: token }
+								        params: { token: tag.token }
 								      }">
-								    	Blog1
+								    	tag.name
 								    </RouterLink>
 								</li>
 								<!-- {{end:tags}} -->

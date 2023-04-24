@@ -13,21 +13,7 @@ export default{
 
 			slides:slides,
 			about:about,
-			articles:[
-
-				{
-
-					id:"article-id-cap1",
-					img: "/images/jpm.png",
-					title: "article-title-cap1"
-				},
-				{
-
-					id:"article-id-cap2",
-					img: "/images/safaricom.jpg",
-					title: "article-title-cap2"
-				}
-			]
+			articles:[]
 		};		
 	},
 	components:{
@@ -45,31 +31,40 @@ export default{
 	},
     methods:{
 
+    	async getArticles():Promise<void>{
+
+    		const blogs = await this.axios.post("/article/latest")
+	  		this.articles = blogs.data.articles
+    	},
     	async getSlides():Promise<void>{
 
-    		let paths = [
+   //  		let paths = [
 
-	    		"/docs/slider/slider1.md",
-				"/docs/slider/slider2.md",
-				"/docs/slider/slider3.md"
-			]
+	  //   		"/docs/slider/slider1.md",
+			// 	"/docs/slider/slider2.md",
+			// 	"/docs/slider/slider3.md"
+			// ]
 
-			const $component = this;
-			const $axios = $component.axios
-	    	await Promise.all(paths.map(async function(path, _){
+			// const $component = this;
+			// const $axios = $component.axios
+	  //   	await Promise.all(paths.map(async function(path, _){
 
-	    		let result = await $axios.get(path);
-	    		$component.slides.push(marked(result.data))
-	    	}))
+	  //   		let result = await $axios.get(path);
+	  //   		$component.slides.push(marked(result.data))
+	  //   	}))
+
+	  		const slides = await this.axios.post("/ref/sliders")
+	  		this.slides = slides.data
 	    },
 	    async getAbout():Promise<void>{
 
-	    	const about = await this.axios.get("/docs/about/about5.md")
+	    	const about = await this.axios.post("/ref/about/home")
 	    	this.about = marked(about.data)
 	    }
     },
     async created(){
 
+    	await this.getArticles()
     	await this.getSlides()
     	await this.getAbout()
     }

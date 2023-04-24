@@ -1,17 +1,36 @@
-<script>
+<script lang="ts">
+import { storeToRefs } from 'pinia'
+import { useServiceListStore } from "@/stores/service.list.store"
 export default{
 
+	setup(){
+
+		const serviceLsStore = useServiceListStore()
+		const { service } = storeToRefs(serviceLsStore)
+
+		setTimeout(function(){
+
+			$.contentWayPoint();
+
+		}, 1000);
+
+		return{
+
+			serviceLsStore,
+			service
+		}
+	},
 	data(){
 
 		return {
 
-			isReady:false,
-			service:{
+			isReady:false//,
+			// service:{
 
-				name:"service-name-cap",
-				title:"service-title-cap",
-				descr:"service-descr-cap"
-			}
+			// 	name:"",
+			// 	title:"",
+			// 	descr:""
+			// }
 		}
 	},
 	methods:{
@@ -20,18 +39,24 @@ export default{
 
 			this.isReady = true;	
 		}
+		//,
+		// async getService(id:int):Promise<void>{
+
+		// 	const service = await this.axios.post("/ref/service/".concat(id))
+		// 	this.service = service.data
+		// }
 	},
-	setup(){
-
-		setTimeout(function(){
-
-			$.contentWayPoint();
-
-		}, 1000);
-	},
-	created(){
+	async created(){
 
 		setTimeout(this.complete, 1000)
+		const id = this.$route.params.id
+		await this.serviceLsStore.getService(id)
+	},
+	async beforeRouteUpdate (to, from, next) {
+
+	  const id = to.params.id;
+	  await this.serviceLsStore.getService(id)
+	  next();
 	}
 }
 </script>

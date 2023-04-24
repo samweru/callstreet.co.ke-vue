@@ -21,7 +21,7 @@ import './assets/js/main.js'
 
 const pinia = createPinia()
 const app = createApp(App)
-axios.defaults.baseURL = "http://localhost:3000"
+axios.defaults.baseURL = "http://localhost:8081"
 // axios.defaults.baseURL = process.env.baseURL || process.env.apiUrl || '';
 
 
